@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pluss;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\AssignOp\Plus;
 
 class PlussController extends Controller
 {
@@ -14,7 +15,8 @@ class PlussController extends Controller
      */
     public function index()
     {
-        //
+        $plushes = Pluss::all();
+        return response()->json($plushes);
     }
 
     /**
@@ -25,7 +27,10 @@ class PlussController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $plush = New Pluss();
+        $plush->fill($request->all());
+        $plush->save();
+        return response()->json($plush, 201);
     }
 
     /**
@@ -34,9 +39,10 @@ class PlussController extends Controller
      * @param  \App\Models\Pluss  $pluss
      * @return \Illuminate\Http\Response
      */
-    public function show(Pluss $pluss)
+    public function show($id)
     {
-        //
+        $plush = Pluss::findOrFail($id);
+        return response()->json($plush);
     }
 
     /**
@@ -46,9 +52,12 @@ class PlussController extends Controller
      * @param  \App\Models\Pluss  $pluss
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pluss $pluss)
+    public function update(Request $request, $id)
     {
-        //
+        $plush = Pluss::findOrFail($id);
+        $plush->fill($request->all());
+        $plush->save();
+        return response()->json($plush, 200);
     }
 
     /**
@@ -57,8 +66,9 @@ class PlussController extends Controller
      * @param  \App\Models\Pluss  $pluss
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pluss $pluss)
+    public function destroy($id)
     {
-        //
+        Pluss::destroy($id);
+        return response()->noContent();
     }
 }
