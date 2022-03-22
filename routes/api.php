@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\PlussController;
+use App\Http\Controllers\PlussController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
